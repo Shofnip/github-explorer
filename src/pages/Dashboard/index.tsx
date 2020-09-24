@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FormEvent } from 'react';
+import React, { useState, useEffect, FormEvent, useCallback } from 'react';
 import { FiChevronRight, FiTrash2 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
@@ -24,7 +24,7 @@ interface Repository {
 }
 
 const Dashboard: React.FC = () => {
-  const [newRepo, setNewRepo] = useState('');
+  const [findRepository, setFindRepository] = useState('');
   const [inputError, setInputError] = useState('');
   const [repositories, setRepositories] = useState<Repository[]>(() => {
     const storagedRepositories = localStorage.getItem(
@@ -45,36 +45,40 @@ const Dashboard: React.FC = () => {
     );
   }, [repositories]);
 
-  async function handleAddRepository(
-    event: FormEvent<HTMLFormElement>,
-  ): Promise<void> {
-    event.preventDefault();
+  const handleAddRepository = useCallback(
+    async (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
 
-    if (!newRepo) {
-      setInputError('Digite o "auto/nome" do repositório.');
-      return;
-    }
+      if (!findRepository) {
+        setInputError('Digite o "auto/nome" do repositório.');
+        return;
+      }
 
-    try {
-      const response = await api.get<Repository>(`repos/${newRepo}`);
+      try {
+        const response = await api.get<Repository>(`repos/${findRepository}`);
 
-      const repository = response.data;
+        const repository = response.data;
 
-      setRepositories([...repositories, repository]);
-      setNewRepo('');
-      setInputError('');
-    } catch {
-      setInputError('Erro na busca por este repositório.');
-    }
-  }
+        setRepositories((oldRepositories) => [...oldRepositories, repository]);
+        setFindRepository('');
+        setInputError('');
+      } catch {
+        setInputError('Erro na busca por este repositório.');
+      }
+    },
+    [findRepository],
+  );
 
-  function handleRemoveRepository(full_name: string): void {
-    const newRepositoriesList = repositories.filter(
-      (repository) => repository.full_name !== full_name,
-    );
+  const handleRemoveRepository = useCallback(
+    (full_name: string) => {
+      const findRepositorysitoriesList = repositories.filter(
+        (repository) => repository.full_name !== full_name,
+      );
 
-    setRepositories(newRepositoriesList);
-  }
+      setRepositories(findRepositorysitoriesList);
+    },
+    [repositories],
+  );
 
   return (
     <>
@@ -83,9 +87,9 @@ const Dashboard: React.FC = () => {
 
       <Form hasError={!!inputError} onSubmit={handleAddRepository}>
         <input
-          value={newRepo}
+          value={findRepository}
           placeholder="Digite o nome do repositório"
-          onChange={(e) => setNewRepo(e.target.value)}
+          onChange={(e) => setFindRepository(e.target.value)}
         />
         <button type="submit">Pesquisar</button>
       </Form>
