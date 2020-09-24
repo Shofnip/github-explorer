@@ -63,22 +63,56 @@ export const Error = styled.span`
   color: #c53030;
 `;
 
-export const Repositories = styled.div`
+export const RepositoriesContainer = styled.div`
   margin-top: 80px;
   max-width: 700px;
 
+  div + div {
+    margin-top: 10px;
+  }
+`;
+
+export const Repository = styled.div`
+  display: flex;
+
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateX(10px);
+  }
+
+  button {
+    width: 30px;
+
+    color: #3d3d4d;
+    background: #e5e5e5;
+    border: 0;
+    border-radius: 5px 0 0 5px;
+
+    transition: background-color 0.4s, color 0.4s ease;
+
+    &:hover {
+      color: #e5e5e5;
+      background: #ef5b5b;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
   a {
     background: #fff;
-    border-radius: 5px;
-    width: 100%;
+    border-radius: 0 5px 5px 0;
     padding: 24px;
     display: block;
     text-decoration: none;
 
     display: flex;
+    flex: 1;
     align-items: center;
 
-    transition: transform 0.2s;
     img {
       width: 64px;
       height: 64px;
@@ -104,10 +138,6 @@ export const Repositories = styled.div`
     svg {
       margin-left: auto;
       color: #cbcbd6;
-    }
-
-    &:hover {
-      transform: translateX(10px);
     }
 
     & + a {

@@ -19,9 +19,8 @@ Com todas as dependências instaladas, digite `yarn start` ou `npm start` para q
 
 ## Considerações finais
 Esta aplicação foi desenvolvida a partir do Bootcamp da Rocketseat para praticar os fundamentos do ReactJS e também para consumir uma API. <br>Ainda tenho planos para realizar algumas features nessa aplicação como:<br>
-- [ ] Poder deletar da lista um repositório que está acompanhando
-- [ ] Paginação com rolagem das Issues
-- [ ] Adicionar preloader nas páginas
+- Paginação com rolagem das Issues
+- Adicionar preloader nas páginas
 
 Também estou aceitando sugestões do features para adicionar na aplicação.
 

@@ -1,11 +1,17 @@
 import React, { useState, useEffect, FormEvent } from 'react';
-import { FiChevronRight } from 'react-icons/fi';
+import { FiChevronRight, FiTrash2 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
 
 import logoImg from '../../assets/logo.svg';
 
-import { Title, Form, Repositories, Error } from './styles';
+import {
+  Title,
+  Form,
+  RepositoriesContainer,
+  Repository,
+  Error,
+} from './styles';
 
 interface Repository {
   full_name: string;
@@ -62,6 +68,14 @@ const Dashboard: React.FC = () => {
     }
   }
 
+  function handleRemoveRepository(full_name: string): void {
+    const newRepositoriesList = repositories.filter(
+      (repository) => repository.full_name !== full_name,
+    );
+
+    setRepositories(newRepositoriesList);
+  }
+
   return (
     <>
       <img src={logoImg} alt="Github Explorer" />
@@ -78,22 +92,31 @@ const Dashboard: React.FC = () => {
 
       {inputError && <Error>{inputError}</Error>}
 
-      <Repositories>
+      <RepositoriesContainer>
         {repositories.map((repository) => (
-          <Link
-            key={repository.full_name}
-            to={`repository/${repository.full_name}`}
-          >
-            <img src={repository.owner.avatar_url} alt="Rodrigo Rodrigues" />
-            <div>
-              <strong>{repository.full_name}</strong>
-              <p>{repository.description}</p>
-            </div>
+          <Repository>
+            <button
+              type="button"
+              onClick={() => handleRemoveRepository(repository.full_name)}
+            >
+              <FiTrash2 />
+            </button>
 
-            <FiChevronRight size={24} />
-          </Link>
+            <Link
+              key={repository.full_name}
+              to={`repository/${repository.full_name}`}
+            >
+              <img src={repository.owner.avatar_url} alt="Rodrigo Rodrigues" />
+              <div>
+                <strong>{repository.full_name}</strong>
+                <p>{repository.description}</p>
+              </div>
+
+              <FiChevronRight size={24} />
+            </Link>
+          </Repository>
         ))}
-      </Repositories>
+      </RepositoriesContainer>
     </>
   );
 };
