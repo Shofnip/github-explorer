@@ -18,11 +18,7 @@ Faça um fork ou clone deste repositório para sua máquina, após isso abra o t
 Com todas as dependências instaladas, digite `yarn start` ou `npm start` para que sua aplicação seja iniciada, após alguns segundos uma página web será aberta automáticamente no seu <b>localhost</b> utilizando a porta <b>3000</b>.
 
 ## Considerações finais
-Esta aplicação foi desenvolvida a partir do Bootcamp da Rocketseat para praticar os fundamentos do ReactJS e também para consumir uma API. <br>Ainda tenho planos para realizar algumas features nessa aplicação como:<br>
-- Paginação com rolagem das Issues
-- Adicionar preloader nas páginas
-
-Também estou aceitando sugestões do features para adicionar na aplicação.
+Esta aplicação foi desenvolvida a partir do Bootcamp da Rocketseat para praticar os fundamentos do ReactJS e também para consumir uma API.
 
 ## :memo: Licença
 
